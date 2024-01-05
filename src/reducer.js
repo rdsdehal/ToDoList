@@ -10,7 +10,7 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN:
-      return { ...state, token: action.token };
+      return { ...state, token: action.token, lists: action.lists };
     case LOGOUT:
       return { ...state, user: null };
     case ADD_LIST:

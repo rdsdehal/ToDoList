@@ -9,7 +9,22 @@ import './App.css';
 
 // Store
 const store = createStore(reducer);
+const createList = async function (token, title) {
+  const r = await fetch("http://localhost:3000/todo-lists/", {
+    method: "POST",
+    body: JSON.stringify({title}),
+    headers: {
+      "content-type": "application/json",
+      "authorization": `Bearer ${token}`
+    }
+  })
 
+  const data = await r.json()
+
+  console.log(data)
+
+  return data
+}
 // App Component
 const AppComponent = ({ token, lists, addList }) => {
   let input;
@@ -21,7 +36,7 @@ const AppComponent = ({ token, lists, addList }) => {
         <div>
           <h2>Todo List - Create a list</h2>
           <input ref={node => (input = node)} />
-          <button onClick={() => addList(input.value)}>
+          <button onClick={ async () => addList( await createList(token, input.value))}>
             Add List
           </button>
           {lists.map(list => <TodoList key={list.id} listId={list.id} />)}
@@ -37,7 +52,7 @@ const AppComponent = ({ token, lists, addList }) => {
 // Map state to props
 const mapStateToProps = state => ({ token: state.token, lists: state.lists });
 const mapDispatchToProps = dispatch => ({
-  addList: title => dispatch(addList(title))
+  addList: (data) => dispatch(addList(data))
 });
 
 // Connect component to Redux store
