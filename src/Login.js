@@ -26,7 +26,7 @@ const Login = ({ login }) => {
     <>
       <title>Todo List</title>
       <h1>Todo List - Sign in</h1>
-      <h3>User - test & password</h3>
+      <h3>User - test & test</h3>
       <input ref={node => (usernameInput = node)} placeholder="Username" />
       <input ref={node => (passwordInput = node)} placeholder="Password" type="password" />
       <button type="submit" onClick={handleLogin}>
