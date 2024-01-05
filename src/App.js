@@ -11,12 +11,13 @@ import './App.css';
 const store = createStore(reducer);
 
 // App Component
-const AppComponent = ({ user, lists, addList }) => {
+const AppComponent = ({ token, lists, addList }) => {
   let input;
 
   return (
-    <div>
-      {user ? (
+    <>
+    <title>Todo List</title>
+      {token ? (
         <div>
           <h2>Todo List - Create a list</h2>
           <input ref={node => (input = node)} />
@@ -29,12 +30,12 @@ const AppComponent = ({ user, lists, addList }) => {
         <Login />
       )}
     <footer>Ramandeep Singh Dehal</footer>
-    </div>
+    </>
   );
 };
 
 // Map state to props
-const mapStateToProps = state => ({ user: state.user, lists: state.lists });
+const mapStateToProps = state => ({ token: state.token, lists: state.lists });
 const mapDispatchToProps = dispatch => ({
   addList: title => dispatch(addList(title))
 });

@@ -10,11 +10,11 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN:
-      return { ...state, user: action.user };
+      return { ...state, token: action.token };
     case LOGOUT:
       return { ...state, user: null };
     case ADD_LIST:
-      return { ...state, lists: [...state.lists, { id: Date.now(), title: action.title, tasks: [] }] };
+      return { ...state, lists: [...state.lists, { id: action.id, title: action.title, tasks: [] }] };
     case ADD_TASK:
       return {
         ...state,

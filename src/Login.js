@@ -5,19 +5,26 @@ import { login } from './actions';
 const Login = ({ login }) => {
   let usernameInput, passwordInput;
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     const username = usernameInput.value;
     const password = passwordInput.value;
-
-    if (username === 'test' && password === 'password') {
-      login({ username, password });
+    const r = await fetch("http://localhost:3000/auth/login", {
+      method: "POST", body: JSON.stringify({
+        username, password
+      }), headers: {"content-type": "application/json"}
+    });
+    if (r.status === 200) {
+      const data = await r.json();
+      console.log(data);
+      login(data);
     } else {
       alert('Invalid username or password!');
     }
   };
 
   return (
-    <div>
+    <>
+      <title>Todo List</title>
       <h1>Todo List - Sign in</h1>
       <h3>User - test & password</h3>
       <input ref={node => (usernameInput = node)} placeholder="Username" />
@@ -25,7 +32,7 @@ const Login = ({ login }) => {
       <button type="submit" onClick={handleLogin}>
         Login
       </button>
-    </div>
+    </>
   );
 };
 
